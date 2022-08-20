@@ -16,7 +16,7 @@ namespace ADCloudReplacer
             (group.AddButton("Steam Workshop Page", 
                 () => ColossalFramework.PlatformServices.PlatformService.ActivateGameOverlayToWebPage(@"https://steamcommunity.com/sharedfiles/filedetails/?id=2077102792")
                 ) as UIButton).NewStyle();
-            (group.AddButton("Github Repository", () => System.Diagnostics.Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=2077102792")) as UIButton).NewStyle();
+            (group.AddButton("Github Repository", () => System.Diagnostics.Process.Start("https://github.com/neinnew/ADCloudReplacer")) as UIButton).NewStyle();
             group.AddSpace(10);
             (group.self as UIPanel).AddUIComponent<UILabel>().text = $"{Mod.Instance.Name} {Mod.Instance.Version}";
 
