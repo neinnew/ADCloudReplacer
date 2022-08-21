@@ -7,7 +7,7 @@ namespace ADCloudReplacer
     {
         public string Name => "AD Cloud Replacer";
 
-        public string Description => "enables the cloud used in After Dark(before weather update) and allows it to be replaced. version " + Version;
+        public string Description => "replace and enables the cloud used in After Dark(before weather update) " + Version;
 
         public string Version => "1.0.0";
         
