@@ -1,5 +1,4 @@
-﻿using ColossalFramework.Globalization;
-using ICities;
+﻿using ICities;
 
 namespace ADCloudReplacer
 {
