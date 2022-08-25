@@ -22,7 +22,6 @@ namespace ADCloudReplacer
         private Texture2D _previewImage = new Texture2D(384, 96);
         
         public static SelectTab Instance;
-        public int SelectedCloudIndex => _cloudsListBox.selectedIndex;
         
         public SelectTab()
         {
