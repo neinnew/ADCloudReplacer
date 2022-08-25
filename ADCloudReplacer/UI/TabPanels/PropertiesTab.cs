@@ -128,6 +128,9 @@ namespace ADCloudReplacer
 
         void AddCustomConfigSaveEvent()
         {
+            // Prevent events from being double subscribed
+            RemoveCustomConfigSaveEvent();
+            
             _alphaSaturationSlider.eventValueChanged += SaveCustomConfig;
             _attenuationSlider.eventValueChanged += SaveCustomConfig;
             _stepSizeSlider.eventValueChanged += SaveCustomConfig;
