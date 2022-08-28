@@ -1,4 +1,5 @@
-﻿using ICities;
+﻿using System.Reflection;
+using ICities;
 
 namespace ADCloudReplacer
 {
@@ -8,7 +9,7 @@ namespace ADCloudReplacer
 
         public string Description => "replace and enables the cloud used in After Dark(before weather update) " + Version;
 
-        public string Version => "1.0.0";
+        public string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         
         public static Mod Instance { get; } = new Mod();
 
