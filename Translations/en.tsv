@@ -1,0 +1,34 @@
+LANGUAGE_NAME	English
+MOD_DESC	replace and enables the cloud used in After Dark(before weather update) 
+VANILLA_LABEL	 (Vanilla)
+TAB_NAME_SELECT	Select
+TAB_NAME_PROPERTIES	Properties
+TAB_NAME_SUPPORT	Support
+ENABLE_AD_CLOUD	Enable AD Cloud
+SELECT_CLOUD	Select Cloud
+TIP_REFRESH_BTN	Refresh
+TIP_OPENLOCALFOLDER_BTN	Open the local folder
+TIP_DMFWORKSHOP_BTN	Download more clouds from Steam Workshop
+APPLY_BTN	Apply
+TIP_VANILLA_PREVIEW	Vanilla clouds are dependent on map environment and can only be seen in-game.
+CLOUD_SIZE_LABEL	Size
+CONTROL_MODE	Control Mode
+MODE_VANILLA	Vanilla
+MODE_CUSTOM	Custom
+TIP_VANILLA_MODE	Load the vanilla values. changed values will not be saved.
+TIP_CUSTOM_MODE	Changed value will be saved to config.
+RESET_TO_VANILLA_BTN	Reset to Vanilla
+TIP_RESET_TO_VANILLA_BTN	Load the vanilla values by the current environment
+ALPHA_SATURATION	Alpha Saturation
+ATTENUATION	Attenuation
+STEP_SIZE	Step Size
+ROTATE_SPPED	Rotate Speed
+SKY_COLOR_MULTIPLIER	Sky Color Multiplier
+SUN_COLOR_MULTIPLIER	Sun Color Multiplier
+TIP_DISABLED_CONTROL_PANEL	In Vanilla mode, setting control available in game
+STEAM_WORKSHOP_PAGE_BTN	Steam Workshop Page
+GITHUB_REPOSITORY_BTN	Github Repository
+SELECT_LANGUAGE	Select Language
+USE_GAME_LANGUAGE	Use game language
+GROUP_LOCALIZATION	Localization
+CROWDIN_LINK_DESC	Interested in translation? Visit the mod's Crowdin project.
