@@ -1,3 +1,4 @@
 files:
   - source: /Translations/en.tsv
     translation: /Translations/%locale%.tsv
+    ignore: /Translations/en-suggest.tsv
