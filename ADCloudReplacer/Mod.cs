@@ -1,13 +1,16 @@
 ﻿using System.Reflection;
 using ICities;
 
+using static ADCloudReplacer.Translation.Translator;
+using static ADCloudReplacer.Translation.KeyStrings;
+
 namespace ADCloudReplacer
 {
     public class Mod : IUserMod
     {
         public string Name => "AD Cloud Replacer";
 
-        public string Description => "replace and enables the cloud used in After Dark(before weather update) " + Version;
+        public string Description => T(k.MOD_DESC) + Version;
 
         public string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         
@@ -16,6 +19,7 @@ namespace ADCloudReplacer
         public void OnEnabled()
         {
             XMLUtils.Load<ModSettings>();
+            Translation.Translator.Initialize();
             if (LoadingManager.instance.m_loadingComplete) CustomWorkshopTag.Initialize();
             LoadingManager.instance.m_introLoaded += CustomWorkshopTag.Initialize;
         }

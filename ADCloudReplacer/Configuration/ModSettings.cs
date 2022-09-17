@@ -17,6 +17,12 @@ namespace ADCloudReplacer
         [XmlAttribute("Version")]
         public int version = 0;
 
+        [XmlElement("Language")]
+        public string Language { get => Translation.Translator.Language; set => Translation.Translator.Language = value; }
+        
+        [XmlElement("UseGameLanguage")]
+        public bool UseGameLanguage { get => Translation.Translator.UseGameLanguage; set => Translation.Translator.UseGameLanguage = value; }
+        
         [XmlElement("ADCloudEnabled")]
         public bool ADCloudEnabled { get => ADCloudReplacer.ADCloudEnabled; set => ADCloudReplacer.ADCloudEnabled = value; }
 

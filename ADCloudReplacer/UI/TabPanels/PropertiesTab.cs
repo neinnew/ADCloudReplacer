@@ -2,6 +2,8 @@
 using UnityEngine;
 using System;
 
+using static ADCloudReplacer.Translation.Translator;
+using static ADCloudReplacer.Translation.KeyStrings;
 
 namespace ADCloudReplacer
 {
@@ -21,15 +23,15 @@ namespace ADCloudReplacer
 
         public PropertiesTab()
         {
-            Name = "Properties";
+            Name = T(k.TAB_NAME_PROPERTIES);
         }
 
         public override void Create(UIHelper helper)
         {
             Instance = this;
             
-            UIHelper group1 = helper.AddGroup("Control Mode") as UIHelper;
-            _controlModeStrip = group1.AddToggleStrip(Enum.GetNames(typeof(Controller.ControlModes)), (int)Controller.ControlMode, OnControlModeChanged);
+            UIHelper group1 = helper.AddGroup(T(k.CONTROL_MODE)) as UIHelper;
+            _controlModeStrip = group1.AddToggleStrip(new string[] { T(k.MODE_VANILLA), T(k.MODE_CUSTOM) }, (int)Controller.ControlMode, OnControlModeChanged);
             var group1Panel = group1.self as UIPanel;
             var buttonsPanel = group1Panel.AddUIComponent<UIPanel>();
             buttonsPanel.width = group1Panel.width - 30f;
@@ -37,24 +39,24 @@ namespace ADCloudReplacer
             buttonsPanel.autoLayout = true;
             buttonsPanel.autoLayoutStart = LayoutStart.BottomRight;
             buttonsPanel.autoLayoutPadding.left = 3;
-            _controlModeStrip.components[0].tooltip = "Load the vanilla values. changed values will not be saved.";
-            _controlModeStrip.components[1].tooltip = "Changed value will be saved to config.";
+            _controlModeStrip.components[0].tooltip = T(k.TIP_VANILLA_MODE);
+            _controlModeStrip.components[1].tooltip = T(k.TIP_CUSTOM_MODE);
 
-            var resetToVanillaButton = group1.AddButton("Reset to Vanilla", () => { Controller.RevertVanilla(); SetSliderValues(); }) as UIButton;
+            var resetToVanillaButton = group1.AddButton(T(k.RESET_TO_VANILLA_BTN), () => { Controller.RevertVanilla(); SetSliderValues(); }) as UIButton;
             resetToVanillaButton.NewStyle();
-            resetToVanillaButton.tooltip = "Load the vanilla values by the current environment";
+            resetToVanillaButton.tooltip = T(k.TIP_RESET_TO_VANILLA_BTN);
             buttonsPanel.AttachUIComponent(resetToVanillaButton.gameObject);
             resetToVanillaButton.isEnabled = Loading.Loaded;
 
             UIHelper group2 = helper.AddGroup("Control") as UIHelper;
             _group2Panel = group2.self as UIPanel;
 
-            _alphaSaturationSlider = group2.AddEditableSlider("Alpha Saturation", 0.01f, 5f, 0.01f, Controller.AlphaSaturation ?? float.NaN, (value) => { Controller.AlphaSaturation = value; });
-            _attenuationSlider = group2.AddEditableSlider("Attenuation", 0, 1f, 0.001f, Controller.Attenuation ?? float.NaN, (value) => { Controller.Attenuation = value; });
-            _stepSizeSlider = group2.AddEditableSlider("Step Size", 0, 0.01f, 0.00001f, Controller.StepSize ?? float.NaN, (value) => { Controller.StepSize = value; });
-            _rotateSpeedSlider = group2.AddEditableSlider("Rotate Speed", 0, 10, 0.01f, Controller.RotateSpeed ?? float.NaN, (value) => { Controller.RotateSpeed = value; });
-            _skyColorMultiplierSlider = group2.AddEditableSlider("Sky Color Multiplier", 0, 10, 0.001f, Controller.SkyColorMultiplier ?? float.NaN, (value) => { Controller.SkyColorMultiplier = value; });
-            _sunColorMultiplierSlider = group2.AddEditableSlider("Sun Color Multiplier", 0, 10, 0.001f, Controller.SunColorMultiplier ?? float.NaN, (value) => { Controller.SunColorMultiplier = value; });
+            _alphaSaturationSlider = group2.AddEditableSlider(T(k.ALPHA_SATURATION), 0.01f, 5f, 0.01f, Controller.AlphaSaturation ?? float.NaN, (value) => { Controller.AlphaSaturation = value; });
+            _attenuationSlider = group2.AddEditableSlider(T(k.ATTENUATION), 0, 1f, 0.001f, Controller.Attenuation ?? float.NaN, (value) => { Controller.Attenuation = value; });
+            _stepSizeSlider = group2.AddEditableSlider(T(k.STEP_SIZE), 0, 0.01f, 0.00001f, Controller.StepSize ?? float.NaN, (value) => { Controller.StepSize = value; });
+            _rotateSpeedSlider = group2.AddEditableSlider(T(k.ROTATE_SPPED), 0, 10, 0.01f, Controller.RotateSpeed ?? float.NaN, (value) => { Controller.RotateSpeed = value; });
+            _skyColorMultiplierSlider = group2.AddEditableSlider(T(k.SKY_COLOR_MULTIPLIER), 0, 10, 0.001f, Controller.SkyColorMultiplier ?? float.NaN, (value) => { Controller.SkyColorMultiplier = value; });
+            _sunColorMultiplierSlider = group2.AddEditableSlider(T(k.SUN_COLOR_MULTIPLIER), 0, 10, 0.001f, Controller.SunColorMultiplier ?? float.NaN, (value) => { Controller.SunColorMultiplier = value; });
 
             ControlModeInitialize();
             
@@ -164,7 +166,7 @@ namespace ADCloudReplacer
         void DisableControlPanel(UIPanel panel)
         {
             panel.Disable();
-            panel.tooltip = "In Vanilla mode, setting control available in game";
+            panel.tooltip = T(k.TIP_DISABLED_CONTROL_PANEL);
             panel.color = new Color32(255, 255, 255, 75);
         }
     }

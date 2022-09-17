@@ -4,6 +4,9 @@ using System.Linq;
 using ColossalFramework.UI;
 using UnityEngine;
 
+using static ADCloudReplacer.Translation.Translator;
+using static ADCloudReplacer.Translation.KeyStrings;
+
 namespace ADCloudReplacer
 {
     public class SelectTab : SettingTabBase
@@ -25,7 +28,7 @@ namespace ADCloudReplacer
         
         public SelectTab()
         {
-            Name = "Select";
+            Name = T(k.TAB_NAME_SELECT);
         }
 
         public override void Create(UIHelper helper)
@@ -33,9 +36,9 @@ namespace ADCloudReplacer
             Instance = this;
 
             UIHelper group = helper.AddGroup(" ") as UIHelper;
-            group.AddCheckbox("Enable AD Cloud", ADCloudReplacer.ADCloudEnabled, OnEnableADCloudChanged);
+            group.AddCheckbox(T(k.ENABLE_AD_CLOUD), ADCloudReplacer.ADCloudEnabled, OnEnableADCloudChanged);
 
-            UIHelper cloudListGroup = helper.AddGroup("Select Cloud") as UIHelper;
+            UIHelper cloudListGroup = helper.AddGroup(T(k.SELECT_CLOUD)) as UIHelper;
             var panel = cloudListGroup.self as UIPanel;
 
             var cloudsListPanel = panel.AddUIComponent<UIPanel>();
@@ -110,7 +113,7 @@ namespace ADCloudReplacer
             refreshListButton.disabledBgSprite = "ToggleRotateXDisabled";
             refreshListButton.AlignTo(cloudsListPanel, UIAlignAnchor.TopRight);
             refreshListButton.relativePosition -= new Vector3(0f, 26.5f);
-            refreshListButton.tooltip = "Refresh";
+            refreshListButton.tooltip = T(k.TIP_REFRESH_BTN);
             refreshListButton.eventClick += (component, param) => RefreshCloudsList();
             
             var openLocalFolderButton = cloudsListPanel.AddUIComponent<UIButton>();
@@ -122,7 +125,7 @@ namespace ADCloudReplacer
             openLocalFolderButton.disabledBgSprite = "FolderSelectDisabled";
             openLocalFolderButton.AlignTo(cloudsListPanel, UIAlignAnchor.TopRight);
             openLocalFolderButton.relativePosition -= new Vector3(30f, 21f);
-            openLocalFolderButton.tooltip = "Open the local folder";
+            openLocalFolderButton.tooltip = T(k.TIP_OPENLOCALFOLDER_BTN);
             openLocalFolderButton.eventClick += (component, param) => System.Diagnostics.Process.Start(CloudLists.LocalDirPath);
 
             var downloadMoreFromWorkshopButton = cloudsListPanel.AddUIComponent<UIButton>();
@@ -133,7 +136,7 @@ namespace ADCloudReplacer
             downloadMoreFromWorkshopButton.disabledColor = new Color32(51, 65, 77, 255);
             downloadMoreFromWorkshopButton.AlignTo(cloudsListPanel, UIAlignAnchor.TopRight);
             downloadMoreFromWorkshopButton.relativePosition -= new Vector3(55f, 19f);
-            downloadMoreFromWorkshopButton.tooltip = "Download more clouds from Steam Workshop";
+            downloadMoreFromWorkshopButton.tooltip = T(k.TIP_DMFWORKSHOP_BTN);
             downloadMoreFromWorkshopButton.eventClick += (component, param) =>
                 ColossalFramework.PlatformServices.PlatformService.ActivateGameOverlayToWebPage(
                     @"https://steamcommunity.com/workshop/browse/?appid=255710&requiredtags%5B%5D=ad%20clouds");
@@ -168,13 +171,13 @@ namespace ADCloudReplacer
             _cloudNameLabel.wordWrap = true;
 
             var cloudResolutionLabel = selectedCloudPanel.AddUIComponent<UILabel>();
-            cloudResolutionLabel.text = "Size";
+            cloudResolutionLabel.text = T(k.CLOUD_SIZE_LABEL);
             cloudResolutionLabel.textColor = new Color32(185, 221, 254, 255); 
             _cloudResolutionLabelValue = _cloudNameLabel.AddUIComponent<UILabel>();
             _cloudResolutionLabelValue.AlignTo(cloudResolutionLabel, UIAlignAnchor.TopRight);
             _cloudResolutionLabelValue.relativePosition = new Vector3(40f, 0f);
             
-            var applyButton = cloudListGroup.AddButton("Apply", OnApplyButtonClick) as UIButton;
+            var applyButton = cloudListGroup.AddButton(T(k.APPLY_BTN), OnApplyButtonClick) as UIButton;
             applyButton.NewStyle();
             selectedCloudPanel.AttachUIComponent(applyButton.gameObject);
             applyButton.autoSize = false;
@@ -237,7 +240,7 @@ namespace ADCloudReplacer
                         label.width = 350f;
                         label.textAlignment = UIHorizontalAlignment.Center;
                         label.textColor = new Color32(185, 221, 254, 255); 
-                        label.text = "Vanilla clouds are dependent on map environment and can only be seen in-game.";
+                        label.text = T(k.TIP_VANILLA_PREVIEW);
                         label.CenterToParent();
                     }
                     _previewSprite.Hide();

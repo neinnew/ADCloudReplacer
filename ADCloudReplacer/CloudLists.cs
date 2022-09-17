@@ -53,7 +53,7 @@ namespace ADCloudReplacer
                     return _cloudNamesForDisplay;
                 }
                 
-                string[] vanilla = { (ADCloudReplacer.OriginalCloudMaterial?.name ?? String.Empty) + " (Vanilla)" };
+                string[] vanilla = { (ADCloudReplacer.OriginalCloudMaterial?.name ?? String.Empty) + Translation.Translator.T(Translation.KeyStrings.k.VANILLA_LABEL) };
                 _cloudNamesForDisplay = vanilla
                     .Concat(CloudFilePaths.Skip(1).Select(Path.GetFileNameWithoutExtension))
                     .ToArray();
