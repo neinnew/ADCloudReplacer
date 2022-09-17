@@ -2,64 +2,63 @@
 using System.IO;
 using System.Xml.Serialization;
 
-namespace ADCloudReplacer
+namespace ADCloudReplacer;
+
+public interface IConfigurationData
 {
-    public interface IConfigurationData
-    {
-        string SettingsFilePath { get; }
-    }
+    string SettingsFilePath { get; }
+}
 
-    public class BackingForSerializeAttribute : Attribute
+public class BackingForSerializeAttribute : Attribute
+{
+    public BackingForSerializeAttribute(string xmlElement)
     {
-        public BackingForSerializeAttribute(string xmlElement)
-        {
-        }
     }
+}
     
-    public class XMLUtils
+public static class XMLUtils
+{
+    public static void Load<T>() where T : IConfigurationData, new()
     {
-        public static void Load<T>() where T : IConfigurationData, new()
+        try
         {
-            try
-            {
-                T data = new();
+            T data = new();
 
-                // Check to see if configuration file exists.
-                if (File.Exists(data.SettingsFilePath))
+            // Check to see if configuration file exists.
+            if (File.Exists(data.SettingsFilePath))
+            {
+                // Read it.
+                using StreamReader reader = new StreamReader(data.SettingsFilePath);
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+                if (!(xmlSerializer.Deserialize(reader) is T settingsFile))
                 {
-                    // Read it.
-                    using StreamReader reader = new StreamReader(data.SettingsFilePath);
-                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-                    if (!(xmlSerializer.Deserialize(reader) is T settingsFile))
-                    {
-                        UnityEngine.Debug.Log(Mod.Instance.Name + ": couldn't deserialize settings file");
-                    }
-                }
-                else
-                {
-                    UnityEngine.Debug.Log(Mod.Instance.Name + ": no settings file found");
+                    UnityEngine.Debug.Log(Mod.Instance.Name + ": couldn't deserialize settings file");
                 }
             }
-            catch (Exception e)
+            else
             {
-                UnityEngine.Debug.LogException(e);
+                UnityEngine.Debug.Log(Mod.Instance.Name + ": no settings file found");
             }
         }
-
-        public static void Save<T>() where T : IConfigurationData, new()
+        catch (Exception e)
         {
-            try
-            {
-                T data = new();
+            UnityEngine.Debug.LogException(e);
+        }
+    }
 
-                using StreamWriter writer = new StreamWriter(data.SettingsFilePath);
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-                xmlSerializer.Serialize(writer, new T());
-            }
-            catch (Exception e)
-            {
-                UnityEngine.Debug.LogException(e);
-            }
+    public static void Save<T>() where T : IConfigurationData, new()
+    {
+        try
+        {
+            T data = new();
+
+            using StreamWriter writer = new StreamWriter(data.SettingsFilePath);
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+            xmlSerializer.Serialize(writer, new T());
+        }
+        catch (Exception e)
+        {
+            UnityEngine.Debug.LogException(e);
         }
     }
 }
