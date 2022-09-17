@@ -36,9 +36,9 @@ public static class Translator
                 while (nativeName is null && !reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
-                    if (line?.Split('\t')[0] == "LANGUAGE_NAME")
+                    if (line?.Split('\t')[0].Trim('"') == "LANGUAGE_NAME")
                     {
-                        nativeName = line.Split('\t')[1];
+                        nativeName = line.Split('\t')[1].Trim('"');
                     }
                 }
                 _nativeLanguageNames = _nativeLanguageNames.Concat(new string[] { nativeName }).ToArray();
@@ -117,7 +117,7 @@ public static class Translator
         try
         {
             var lines = File.ReadAllLines(path);
-            return lines.ToDictionary(key => key.Split('\t')[0], value => value.Split('\t')[1]);
+            return lines.ToDictionary(key => key.Split('\t')[0].Trim('"'), value => value.Split('\t')[1].Trim('"'));
         }
         catch (Exception e)
         {
