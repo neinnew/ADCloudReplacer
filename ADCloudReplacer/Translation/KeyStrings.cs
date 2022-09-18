@@ -18,6 +18,7 @@ public static class KeyStrings
         public const string TIP_VANILLA_PREVIEW = "TIP_VANILLA_PREVIEW";
         public const string CLOUD_SIZE_LABEL = "CLOUD_SIZE_LABEL";
         public const string CONTROL_MODE = "CONTROL_MODE";
+        public const string GROUP_CONTROL = "GROUP_CONTROL";
         public const string MODE_VANILLA = "MODE_VANILLA";
         public const string MODE_CUSTOM = "MODE_CUSTOM";
         public const string TIP_VANILLA_MODE = "TIP_VANILLA_MODE";

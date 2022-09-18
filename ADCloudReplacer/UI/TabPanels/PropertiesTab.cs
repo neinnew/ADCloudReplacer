@@ -48,7 +48,7 @@ public class PropertiesTab : SettingTabBase
         buttonsPanel.AttachUIComponent(resetToVanillaButton.gameObject);
         resetToVanillaButton.isEnabled = Loading.Loaded;
 
-        UIHelper group2 = helper.AddGroup("Control") as UIHelper;
+        UIHelper group2 = helper.AddGroup(T(k.GROUP_CONTROL)) as UIHelper;
         _group2Panel = group2.self as UIPanel;
 
         _alphaSaturationSlider = group2.AddEditableSlider(T(k.ALPHA_SATURATION), 0.01f, 5f, 0.01f, Controller.AlphaSaturation ?? float.NaN, (value) => { Controller.AlphaSaturation = value; });

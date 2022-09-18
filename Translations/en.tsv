@@ -13,6 +13,7 @@
 "TIP_VANILLA_PREVIEW"	"Vanilla clouds are dependent on map environment and can only be seen in-game."
 "CLOUD_SIZE_LABEL"	"Size"
 "CONTROL_MODE"	"Control Mode"
+"GROUP_CONTROL"	"Control"
 "MODE_VANILLA"	"Vanilla"
 "MODE_CUSTOM"	"Custom"
 "TIP_VANILLA_MODE"	"Load the vanilla values. changed values will not be saved."
