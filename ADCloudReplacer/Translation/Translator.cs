@@ -38,7 +38,7 @@ public static class Translator
                     var line = reader.ReadLine();
                     if (line?.Split('\t')[0].Trim('"') == "LANGUAGE_NAME")
                     {
-                        nativeName = line.Split('\t')[1];
+                        nativeName = line.Split('\t')[1].Trim('"');
                     }
                 }
                 _nativeLanguageNames = _nativeLanguageNames.Concat(new string[] { nativeName }).ToArray();
