@@ -13,6 +13,7 @@
 "TIP_VANILLA_PREVIEW"	"바닐라 구름은 맵 환경에 의존하므로 인게임에서만 볼 수 있습니다."
 "CLOUD_SIZE_LABEL"	"크기"
 "CONTROL_MODE"	"컨트롤 모드"
+"GROUP_CONTROL"	"컨트롤"
 "MODE_VANILLA"	"바닐라"
 "MODE_CUSTOM"	"커스텀"
 "TIP_VANILLA_MODE"	"바닐라 값을 불러옵니다. 바뀐 값은 저장되지 않습니다."
