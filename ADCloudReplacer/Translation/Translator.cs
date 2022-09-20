@@ -49,6 +49,11 @@ public static class Translator
         
         LocaleManager.eventLocaleChanged += OnGameLocaleChanged;
     }
+
+    public static void OnSettingsUI()
+    {
+        OnGameLocaleChanged();
+    }
     
     [BackingForSerialize(nameof(ModSettings.Language))]
     public static string Language

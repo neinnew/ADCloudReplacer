@@ -26,6 +26,7 @@ public class Mod : IUserMod
 
     public void OnSettingsUI(UIHelperBase helper)
     {
+        Translation.Translator.OnSettingsUI();
         new SettingsUI(helper);
     }
 }
