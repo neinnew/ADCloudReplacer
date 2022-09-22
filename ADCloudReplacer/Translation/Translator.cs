@@ -161,7 +161,29 @@ public static class Translator
     
     public static string[] LanguageCodeNamePair => _languageList.Select((string code, int index) => $"{_nativeLanguageNames[index]} ({code})").ToArray();
 
-    private static string ResourcePath => Path.Combine(PluginManager.instance.FindPluginInfo(Assembly.GetExecutingAssembly()).modPath, "Translations");
+    private static string ResourcePath
+    {
+        get
+        {
+            var thisMod = PluginManager.instance.FindPluginInfo(Assembly.GetExecutingAssembly());
+            
+            if (thisMod is null)
+            {
+                var plugins = PluginManager.instance.GetPluginsInfo();
+                foreach (var plugin in plugins)
+                {
+                    if (plugin.GetAssemblies().Any(assembly => assembly == Assembly.GetExecutingAssembly()))
+                    {
+                        thisMod = plugin;
+                        break;
+                    }
+                }
+            }
+            if (thisMod is null) return null;
+
+            return Path.Combine(thisMod.modPath, "Translations");
+        }
+    }
     
     private static void LoadFallbackTranslation()
     {
