@@ -174,8 +174,8 @@ public class SelectTab : SettingTabBase
         cloudResolutionLabel.text = T(k.CLOUD_SIZE_LABEL);
         cloudResolutionLabel.textColor = new Color32(185, 221, 254, 255); 
         _cloudResolutionLabelValue = _cloudNameLabel.AddUIComponent<UILabel>();
-        _cloudResolutionLabelValue.AlignTo(cloudResolutionLabel, UIAlignAnchor.TopRight);
-        _cloudResolutionLabelValue.relativePosition = new Vector3(40f, 0f);
+        _cloudResolutionLabelValue.AlignTo(cloudResolutionLabel, UIAlignAnchor.TopLeft);
+        _cloudResolutionLabelValue.relativePosition = new Vector3(cloudResolutionLabel.width + 8f, 0f);
             
         var applyButton = cloudListGroup.AddButton(T(k.APPLY_BTN), OnApplyButtonClick) as UIButton;
         applyButton.NewStyle();
