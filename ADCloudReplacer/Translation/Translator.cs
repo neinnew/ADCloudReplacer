@@ -227,7 +227,7 @@ public static class Translator
     
     private static void UpdateSettingsUI()
     {
-        //TODO:
+        SettingsUI.LocaleChanged();
     }
 
     private static void UpdateCustomUI()

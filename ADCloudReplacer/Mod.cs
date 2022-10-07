@@ -20,13 +20,22 @@ public class Mod : IUserMod
     {
         XMLUtils.Load<ModSettings>();
         Translation.Translator.Initialize();
-        if (LoadingManager.instance.m_loadingComplete) CustomWorkshopTag.Initialize();
-        LoadingManager.instance.m_introLoaded += CustomWorkshopTag.Initialize;
+        
+        if (LoadingManager.instance.m_loadingComplete)
+        {
+            CustomWorkshopTag.Initialize();
+            SettingsUI.OptionsEventHook();
+        }
+        else
+        {
+            LoadingManager.instance.m_introLoaded += CustomWorkshopTag.Initialize;
+            LoadingManager.instance.m_introLoaded += SettingsUI.OptionsEventHook;
+        }
     }
 
     public void OnSettingsUI(UIHelperBase helper)
     {
         Translation.Translator.OnSettingsUI();
-        new SettingsUI(helper);
+        SettingsUI.Setup(helper);
     }
 }
