@@ -109,7 +109,7 @@ public static class SettingsUI
     /// <summary>
     /// Creates the panel object in-game and displays it.
     /// </summary>
-    private static void Create()
+    public static void Create()
     {
         Debug.LogWarning("Create");
         try
@@ -142,13 +142,13 @@ public static class SettingsUI
     /// <summary>
     /// Closes the panel by destroying the object (removing any ongoing UI overhead).
     /// </summary>
-    private static void Close()
+    public static void Close()
     {
         Debug.LogWarning("Close");
         // We're no longer visible - destroy our game object.
         if (_optionsGameObject != null)
         {
-            UnityEngine.Object.Destroy(_optionsPanel .gameObject);
+            UnityEngine.Object.Destroy(_optionsPanel.gameObject);
             UnityEngine.Object.Destroy(_optionsPanel);
             UnityEngine.Object.Destroy(_optionsGameObject);
 

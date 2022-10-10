@@ -15,7 +15,13 @@ public class Loading : LoadingExtensionBase
     {
         ADCloudReplacer.Initialize();
         Controller.Initialize();
-        SelectTab.Instance.RefreshCloudsList();
-        PropertiesTab.Instance.ControlModeInitialize();
+        
+        SettingsUI.OptionsEventHook();
+        SettingsUI.Create();
+        {
+            SelectTab.Instance.RefreshCloudsList();
+            PropertiesTab.Instance.ControlModeInitialize();
+        }
+        SettingsUI.Close();
     }
 }
