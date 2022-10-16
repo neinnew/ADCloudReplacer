@@ -34,7 +34,7 @@
 "GROUP_LOCALIZATION"	"Localization"
 "CROWDIN_LINK_DESC"	"Interested in translation? Visit the mod's Crowdin project."
 "GROUP_INGAMEUI"	"In-Game UI"
-"SHOW_MOD_BUTTON	"Show Mod Button"
+"SHOW_MOD_BUTTON"	"Show Mod Button"
 "MOD_BUTTON_POSITION"	"Mod Button Position"
 "PANEL_POSITION"	"Panel Position"
 "RESET_BTN"	"Reset"
