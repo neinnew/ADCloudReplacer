@@ -113,8 +113,9 @@ internal static class UIHelperExtension
             button.hoveredColor = new Color32(200, 200, 200, 255);
         }
 
-        tabstrip.eventSelectedIndexChanged += eventSelectedIndexChanged;
         tabstrip.startSelectedIndex = defaultSelected;
+        tabstrip.selectedIndex = defaultSelected;
+        tabstrip.eventSelectedIndexChanged += eventSelectedIndexChanged;
 
         return tabstrip;
     }
