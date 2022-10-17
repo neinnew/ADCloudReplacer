@@ -2,7 +2,7 @@
 using ICities;
 
 using static ADCloudReplacer.Translation.Translator;
-using static ADCloudReplacer.Translation.KeyStrings;
+using k = ADCloudReplacer.Translation.KeyStrings;
 
 namespace ADCloudReplacer;
 

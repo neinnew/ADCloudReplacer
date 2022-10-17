@@ -232,7 +232,8 @@ public static class Translator
 
     private static void UpdateCustomUI()
     {
-        //TODO:
+        InGameUIManager.Destroy();
+        InGameUIManager.ShowModButton = InGameUIManager.ShowModButton;
     }
 }
 

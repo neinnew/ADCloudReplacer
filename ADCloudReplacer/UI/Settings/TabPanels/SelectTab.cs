@@ -1,11 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using ColossalFramework.UI;
 using UnityEngine;
 
 using static ADCloudReplacer.Translation.Translator;
-using static ADCloudReplacer.Translation.KeyStrings;
+using k = ADCloudReplacer.Translation.KeyStrings;
 
 namespace ADCloudReplacer;
 
@@ -106,7 +104,7 @@ public class SelectTab : SettingTabBase
 
         var refreshListButton = cloudsListPanel.AddUIComponent<UIButton>();
         refreshListButton.size = new Vector2(26f, 26f);
-        refreshListButton.atlas = Resources.FindObjectsOfTypeAll<UITextureAtlas>().FirstOrDefault(atlas => atlas.name == "InAssetImporter");
+        refreshListButton.atlas = TextureAtlasUtils.InAssetImporterAtlas;
         refreshListButton.normalBgSprite = "ToggleRotateX";
         refreshListButton.hoveredBgSprite = "ToggleRotateXHovered";
         refreshListButton.pressedBgSprite = "ToggleRotateXPressed";
@@ -118,7 +116,7 @@ public class SelectTab : SettingTabBase
             
         var openLocalFolderButton = cloudsListPanel.AddUIComponent<UIButton>();
         openLocalFolderButton.size = new Vector2(16f, 16f);
-        openLocalFolderButton.atlas = Resources.FindObjectsOfTypeAll<UITextureAtlas>().FirstOrDefault(atlas => atlas.name == "InAssetImporter");
+        openLocalFolderButton.atlas = TextureAtlasUtils.InAssetImporterAtlas;
         openLocalFolderButton.normalBgSprite = "FolderSelect";
         openLocalFolderButton.hoveredBgSprite = "FolderSelectHovered";
         openLocalFolderButton.pressedBgSprite = "FolderSelectPressed";
@@ -222,7 +220,7 @@ public class SelectTab : SettingTabBase
             
         if (selectedCloud == VanillaIndex) // Vanilla cloud selected
         {
-            if (Loading.Loaded) // In-game, vanilla cloud can be loaded.
+            if (Loading.Created) // In-game, vanilla cloud can be loaded.
             {
                 if (ADCloudReplacer.OriginalCloudMaterial == null) return;
                 var texture = ADCloudReplacer.OriginalCloudMaterial.GetTexture(Shader.PropertyToID("_CloudSampler"));

@@ -7,6 +7,15 @@ namespace ADCloudReplacer;
 
 public static class SettingsUI
 {
+    public static UIPanel OptionsPanel
+    {
+        get
+        {
+            Create();
+            return _optionsPanel;
+        }
+    }
+
     private static GameObject _optionsGameObject;
     private static UIPanel _gameOptionsPanel;
     private static UIPanel _modNamedPanel;
@@ -76,6 +85,13 @@ public static class SettingsUI
             _optionsTabStrip.startSelectedIndex = _optionsTabStrip.tabCount - 1;
         }
     }
+
+    public static void ActionsWhileCreated(Action action)
+    {
+        Create();
+        action();
+        Close();
+    }
     
     private static void AddModStrip()
     {
@@ -109,9 +125,8 @@ public static class SettingsUI
     /// <summary>
     /// Creates the panel object in-game and displays it.
     /// </summary>
-    public static void Create()
+    private static void Create()
     {
-        Debug.LogWarning("Create");
         try
         {
             // If no instance already set, create one.
@@ -142,9 +157,8 @@ public static class SettingsUI
     /// <summary>
     /// Closes the panel by destroying the object (removing any ongoing UI overhead).
     /// </summary>
-    public static void Close()
+    private static void Close()
     {
-        Debug.LogWarning("Close");
         // We're no longer visible - destroy our game object.
         if (_optionsGameObject != null)
         {

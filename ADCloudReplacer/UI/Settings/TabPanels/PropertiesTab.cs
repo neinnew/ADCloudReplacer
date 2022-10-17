@@ -1,9 +1,8 @@
 ﻿using ColossalFramework.UI;
 using UnityEngine;
-using System;
 
 using static ADCloudReplacer.Translation.Translator;
-using static ADCloudReplacer.Translation.KeyStrings;
+using k = ADCloudReplacer.Translation.KeyStrings;
 
 namespace ADCloudReplacer;
 
@@ -32,6 +31,8 @@ public class PropertiesTab : SettingTabBase
             
         UIHelper group1 = helper.AddGroup(T(k.CONTROL_MODE)) as UIHelper;
         _controlModeStrip = group1.AddToggleStrip(new string[] { T(k.MODE_VANILLA), T(k.MODE_CUSTOM) }, (int)Controller.ControlMode, OnControlModeChanged);
+        _controlModeStrip.eventSelectedIndexChanged += (_, _) => XMLUtils.Save<ModSettings>();
+
         var group1Panel = group1.self as UIPanel;
         var buttonsPanel = group1Panel.AddUIComponent<UIPanel>();
         buttonsPanel.width = group1Panel.width - 30f;
@@ -46,7 +47,7 @@ public class PropertiesTab : SettingTabBase
         resetToVanillaButton.NewStyle();
         resetToVanillaButton.tooltip = T(k.TIP_RESET_TO_VANILLA_BTN);
         buttonsPanel.AttachUIComponent(resetToVanillaButton.gameObject);
-        resetToVanillaButton.isEnabled = Loading.Loaded;
+        resetToVanillaButton.isEnabled = Loading.Created;
 
         UIHelper group2 = helper.AddGroup(T(k.GROUP_CONTROL)) as UIHelper;
         _group2Panel = group2.self as UIPanel;
@@ -83,7 +84,7 @@ public class PropertiesTab : SettingTabBase
                 Controller.ControlMode = Controller.ControlModes.Vanilla;
                 RemoveCustomConfigSaveEvent();
 
-                if (Loading.Loaded)
+                if (Loading.Created)
                 {
                     EnableControlPanel(_group2Panel);
                     Controller.RevertVanilla();
@@ -107,9 +108,7 @@ public class PropertiesTab : SettingTabBase
                 
             default:
                 break;
-
         };
-        XMLUtils.Save<ModSettings>();
     }
 
     void SetSliderValues()

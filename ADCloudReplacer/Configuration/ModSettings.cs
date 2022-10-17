@@ -19,9 +19,24 @@ public class ModSettings : IConfigurationData
 
     [XmlElement("Language")]
     public string Language { get => Translation.Translator.Language; set => Translation.Translator.Language = value; }
-        
+
     [XmlElement("UseGameLanguage")]
     public bool UseGameLanguage { get => Translation.Translator.UseGameLanguage; set => Translation.Translator.UseGameLanguage = value; }
+    
+    [XmlElement("ShowModButton")]
+    public bool ShowModButton { get => InGameUIManager.ShowModButton; set => InGameUIManager.ShowModButton = value; }
+    
+    [XmlElement("ModButtonPositionX")]
+    public float ModButtonPositionX { get => InGameUIManager.ModButtonPositionX; set => InGameUIManager.ModButtonPositionX = value; }
+    
+    [XmlElement("ModButtonPositionY")]
+    public float ModButtonPositionY { get => InGameUIManager.ModButtonPositionY; set => InGameUIManager.ModButtonPositionY = value; }
+    
+    [XmlElement("PanelPositionX")]
+    public float PanelPositionX { get => InGameUIManager.PanelPositionX; set => InGameUIManager.PanelPositionX = value; }
+    
+    [XmlElement("PanelPositionY")]
+    public float PanelPositionY { get => InGameUIManager.PanelPositionY; set => InGameUIManager.PanelPositionY = value; }
         
     [XmlElement("ADCloudEnabled")]
     public bool ADCloudEnabled { get => ADCloudReplacer.ADCloudEnabled; set => ADCloudReplacer.ADCloudEnabled = value; }

@@ -1,5 +1,4 @@
-﻿
-namespace ADCloudReplacer;
+﻿namespace ADCloudReplacer;
 
 public abstract class SettingTabBase
 {

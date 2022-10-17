@@ -64,16 +64,23 @@
     <Compile Include="CustomWorkshopTag.cs" />
     <Compile Include="Translation\KeyStrings.cs" />
     <Compile Include="Translation\Translator.cs" />
-    <Compile Include="UI\SettingsUI.cs" />
+    <Compile Include="UI\InGame\InGamePanel.cs" />
+    <Compile Include="UI\InGame\InGameUIManager.cs" />
+    <Compile Include="UI\InGame\ModButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\SettingTabBase.cs" />
-    <Compile Include="UI\TabPanels\SupportTab.cs" />
-    <Compile Include="UI\TabPanels\PropertiesTab.cs" />
-    <Compile Include="UI\TabPanels\SelectTab.cs" />
+    <Compile Include="UI\Settings\SettingsUI.cs" />
+    <Compile Include="UI\Settings\SettingTabBase.cs" />
+    <Compile Include="UI\Settings\TabPanels\PropertiesTab.cs" />
+    <Compile Include="UI\Settings\TabPanels\SelectTab.cs" />
+    <Compile Include="UI\Settings\TabPanels\SupportTab.cs" />
+    <Compile Include="UI\TextureAtlasUtils.cs" />
     <Compile Include="UI\TabstripExtension.cs" />
     <Compile Include="UI\UIHelperExtension.cs" />
     <Compile Include="UI\UIStyle.cs" />
     <Compile Include="XMLUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sprites\*.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
