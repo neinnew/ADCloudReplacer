@@ -62,7 +62,11 @@
     <Compile Include="Configuration\GlobalPropertiesConfig.cs" />
     <Compile Include="Configuration\ModSettings.cs" />
     <Compile Include="CustomWorkshopTag.cs" />
-    <Compile Include="Translation\KeyStrings.cs" />
+    <Compile Include="Translation\KeyStrings.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KeyStrings.tt</DependentUpon>
+    </Compile>
     <Compile Include="Translation\Translator.cs" />
     <Compile Include="UI\InGame\InGamePanel.cs" />
     <Compile Include="UI\InGame\InGameUIManager.cs" />
@@ -80,7 +84,17 @@
     <Compile Include="XMLUtils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Translation\Source.tsv" />
     <EmbeddedResource Include="Sprites\*.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Translation\KeyStrings.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>KeyStrings.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
