@@ -14,16 +14,36 @@ public static class Translator
     [BackingForSerialize(nameof(ModSettings.UseGameLanguage))]
     public static bool UseGameLanguage = true;
     
-    private static string _language = "en";
+    [BackingForSerialize(nameof(ModSettings.Language))]
+    public static string Language
+    {
+        get => _language;
+        set
+        {
+            _language = value;
+            _translations = value == DefaultLanguage ? SourceEnglish : GetTranslation(value);
+        }
+    }
+    private static string _language = DefaultLanguage;
 
+    private const string DefaultLanguage = "en-EN";
+    
     private static Dictionary<string, string> _translations;
+    private static Dictionary<string, string> _sourceEnglish;
     private static List<Dictionary<string, string>> _fallbackTranslations;
 
-    private static string[] _languageList = {};
-    private static string[] _nativeLanguageNames = {};
+    private static string _resourcePath;
+
+    private static List<string> _languageList;
+    private static List<string> _languageNativeNames;
+    public static IEnumerable<string> LanguageCodeNamePair => _languageList.Select((string code, int index) => $"{_languageNativeNames[index]} ({code})").ToArray();
 
     public static void Initialize()
     {
+        // Add English first.
+        _languageList = new List<string> { DefaultLanguage };
+        _languageNativeNames = new List<string> { SourceEnglish?["LANGUAGE_NAME"] }; 
+
         var paths = Directory.GetFiles(ResourcePath, "*.tsv");
         
         foreach (var path in paths)
@@ -41,10 +61,10 @@ public static class Translator
                         nativeName = line.Split('\t')[1].Trim('"');
                     }
                 }
-                _nativeLanguageNames = _nativeLanguageNames.Concat(new string[] { nativeName }).ToArray();
+                _languageNativeNames.Add(nativeName);
             }
             string code = Path.GetFileNameWithoutExtension(path);
-            _languageList = _languageList.Concat(new string[] { code }).ToArray();
+            _languageList.Add(code);
         }
         
         LocaleManager.eventLocaleChanged += OnGameLocaleChanged;
@@ -53,17 +73,6 @@ public static class Translator
     public static void OnSettingsUI()
     {
         OnGameLocaleChanged();
-    }
-    
-    [BackingForSerialize(nameof(ModSettings.Language))]
-    public static string Language
-    {
-        get => _language;
-        set
-        {
-            _language = value;
-            _translations = GetTranslation(value);
-        }
     }
     
     /// <summary>
@@ -79,16 +88,10 @@ public static class Translator
             return _translations[key];
         }
 
-        // Translation not found - load the fallbacks.
-        if (_fallbackTranslations == null)
-        {
-            LoadFallbackTranslation();
-        }
-
         // Try available fallbacks.
-        if (_fallbackTranslations!.Count > 1)
+        if (FallBackTranslations != null)
         {
-            foreach (var fallbackTranslation in _fallbackTranslations.Skip(1))
+            foreach (var fallbackTranslation in FallBackTranslations)
             {
                 if (fallbackTranslation.ContainsKey(key))
                 {
@@ -97,19 +100,47 @@ public static class Translator
             }
         }
         
-        // Try English
-        if (_fallbackTranslations.FirstOrDefault() is {  } fallbackEnglish)
+        // Try English source.
+        if (SourceEnglish != null)
         {
-            if (fallbackEnglish.ContainsKey(key))
+            if (SourceEnglish.ContainsKey(key))
             {
-                return fallbackEnglish[key];
+                return SourceEnglish[key];
             }
         }
-        
+
         // No translation at all - returns the key
         return key;
     }
 
+    /// <summary>
+    /// Index used for language selection. Consider that 0 is 'Use game language' in the settings dropdown.
+    /// </summary>
+    public static int Index
+    {
+        get
+        {
+            if (UseGameLanguage) return 0;
+            return _languageList.FindIndex(code => code == Language) + 1;
+        }
+        set
+        {
+            if (value < 1)
+            {
+                UseGameLanguage = true;
+                OnGameLocaleChanged();
+                UpdateSettingsUI();
+            }
+            else
+            {
+                UseGameLanguage = false;
+                Language = _languageList[value - 1];
+                UpdateAll();
+            }
+            XMLUtils.Save<ModSettings>();
+        }
+    }
+    
     /// <summary>
     /// Get translation dictionary from tsv file in resource path.
     /// </summary>
@@ -131,40 +162,77 @@ public static class Translator
         }
     }
 
-    /// <summary>
-    /// Index used for language selection. Consider that 0 is 'Use game language' in the settings dropdown.
-    /// </summary>
-    public static int Index
+    private static Dictionary<string, string> SourceEnglish
     {
         get
         {
-            if (UseGameLanguage) return 0;
-            return Array.FindIndex(_languageList, code => code == Language) + 1;
-        }
-        set
-        {
-            if (value < 1)
+            if (_sourceEnglish != null)
             {
-                UseGameLanguage = true;
-                OnGameLocaleChanged();
-                UpdateSettingsUI();
+                return _sourceEnglish;
             }
-            else
+
+            string fileName = Assembly.GetExecutingAssembly().GetName().Name + "." + nameof(Translation) + "." + "Source.tsv";
+            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(fileName);
+
+            if (stream == null)
             {
-                UseGameLanguage = false;
-                Language = _languageList[value - 1];
-                UpdateAll();
+                Debug.LogWarning("No source string found.");
+                return null;
             }
-            XMLUtils.Save<ModSettings>();
+            
+            _sourceEnglish = new Dictionary<string, string>();
+            using var reader = new StreamReader(stream);
+            
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                if (line == null) break;
+                _sourceEnglish.Add(line.Split('\t')[0].Trim('"'), line.Split('\t')[1].Trim('"'));
+            }
+
+            return _sourceEnglish;
         }
     }
     
-    public static string[] LanguageCodeNamePair => _languageList.Select((string code, int index) => $"{_nativeLanguageNames[index]} ({code})").ToArray();
+    private static List<Dictionary<string, string>> FallBackTranslations
+    {
+        get
+        {
+            if (_fallbackTranslations != null)
+            {
+                return _fallbackTranslations;
+            }
 
+            _fallbackTranslations = new List<Dictionary<string, string>>();
+
+            // Add available fallbacks.
+            var shortCode = Language.Substring(0, 2);
+            foreach (var code in _languageList)
+            {
+                if (code.Substring(0, 2) == shortCode)
+                {
+                    _fallbackTranslations.Add(GetTranslation(code));
+                }
+            }
+
+            if (!_fallbackTranslations.Any())
+            {
+                _fallbackTranslations = null;
+            }
+
+            return _fallbackTranslations;
+        }
+    }
+    
     private static string ResourcePath
     {
         get
         {
+            if (_resourcePath != null)
+            {
+                return _resourcePath;
+            }
+            
             var thisMod = PluginManager.instance.FindPluginInfo(Assembly.GetExecutingAssembly());
             
             if (thisMod is null)
@@ -181,24 +249,7 @@ public static class Translator
             }
             if (thisMod is null) return null;
 
-            return Path.Combine(thisMod.modPath, "Translations");
-        }
-    }
-    
-    private static void LoadFallbackTranslation()
-    {
-        _fallbackTranslations = new List<Dictionary<string, string>> {
-            // Add English to the first element.
-            GetTranslation("en") };
-
-        // Add available fallbacks.
-        var shortCode = Language.Substring(0, 2);
-        foreach (var code in _languageList)
-        {
-            if (code.Substring(0, 2) == shortCode)
-            {
-                _fallbackTranslations.Add(GetTranslation(code));
-            }
+            return _resourcePath = Path.Combine(thisMod.modPath, "Translations");
         }
     }
 
@@ -214,7 +265,7 @@ public static class Translator
         Language = _languageList
                        .Where(code => LocaleManager.instance.supportedLocaleIDs.Contains(code.Substring(0, 2)))
                        .FirstOrDefault(code => code.Substring(0, 2) == LocaleManager.instance.language)
-                   ?? "en";
+                   ?? DefaultLanguage;
         
         UpdateCustomUI();
     }

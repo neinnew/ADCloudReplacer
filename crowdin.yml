@@ -1,5 +1,5 @@
 files:
-  - source: /Translations/en.tsv
-    translation: /Translations/%locale%.tsv
+  - source: ADCloudReplacer/Translation/Source/*.tsv
     ignore:
       - /Translations/en-suggest.tsv
+    translation: /Translations/%locale%/%original_file_name%
