@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADCloudReplacer", "ADCloudReplacer\ADCloudReplacer.csproj", "{65F74B29-CD83-44FD-A411-F0FDA97A2B54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADCloudReplacer", "ADCloudReplacer\ADCloudReplacer.csproj", "{65F74B29-CD83-44FD-A411-F0FDA97A2B54}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "nnCitiesShared", "nnCitiesShared\nnCitiesShared.shproj", "{FFDF7CF3-65EB-4943-AF51-C4ED60B5DA62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,5 +23,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {53BBD7EF-531E-485E-91BF-0FD4EC829A17}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		nnCitiesShared\nnCitiesShared.projitems*{65f74b29-cd83-44fd-a411-f0fda97a2b54}*SharedItemsImports = 5
+		nnCitiesShared\nnCitiesShared.projitems*{ffdf7cf3-65eb-4943-af51-c4ed60b5da62}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

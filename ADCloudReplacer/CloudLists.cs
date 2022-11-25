@@ -53,7 +53,8 @@ public static class CloudLists
                 return _cloudNamesForDisplay;
             }
                 
-            string[] vanilla = { (ADCloudReplacer.OriginalCloudMaterial?.name ?? String.Empty) + Translation.Translator.T(Translation.KeyStrings.VANILLA_LABEL) };
+            string[] vanilla = { $"{(ADCloudReplacer.OriginalCloudMaterial == null ? string.Empty : ADCloudReplacer.OriginalCloudMaterial.name + " ")}" +
+                                 $"({nnCitiesShared.Translation.Usage.T[nnCitiesShared.Translation.KeyStrings.VANILLA]})" };
             _cloudNamesForDisplay = vanilla
                 .Concat(CloudFilePaths.Skip(1).Select(Path.GetFileNameWithoutExtension))
                 .ToArray();

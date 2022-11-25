@@ -18,10 +18,10 @@ public class ModSettings : IConfigurationData
     public int version = 0;
 
     [XmlElement("Language")]
-    public string Language { get => Translation.Translator.Language; set => Translation.Translator.Language = value; }
+    public string Language { get => nnCitiesShared.Translation.Translator.Language; set => nnCitiesShared.Translation.Translator.Language = value; }
 
     [XmlElement("UseGameLanguage")]
-    public bool UseGameLanguage { get => Translation.Translator.UseGameLanguage; set => Translation.Translator.UseGameLanguage = value; }
+    public bool UseGameLanguage { get => nnCitiesShared.Translation.Translator.UseGameLanguage; set => nnCitiesShared.Translation.Translator.UseGameLanguage = value; }
     
     [XmlElement("ShowModButton")]
     public bool ShowModButton { get => InGameUIManager.ShowModButton; set => InGameUIManager.ShowModButton = value; }

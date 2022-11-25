@@ -1,4 +1,5 @@
 ﻿using ColossalFramework.UI;
+using nnCitiesShared.Translation;
 
 namespace ADCloudReplacer;
 
@@ -44,6 +45,15 @@ public static class InGameUIManager
 
     #endregion
 
+    static InGameUIManager()
+    {
+        Translator.UpdateCustomUI += delegate
+        {
+            Destroy();
+            ShowModButton = ShowModButton;
+        };
+    }
+    
     public static void Create()
     {
         ModButton ??= UIView.GetAView().AddUIComponent(typeof(ModButton)) as ModButton;

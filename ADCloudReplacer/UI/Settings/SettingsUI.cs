@@ -1,21 +1,13 @@
 ﻿using ColossalFramework.UI;
 using System;
 using ICities;
+using nnCitiesShared.Translation;
 using UnityEngine;
 
 namespace ADCloudReplacer;
 
 public static class SettingsUI
 {
-    public static UIPanel OptionsPanel
-    {
-        get
-        {
-            Create();
-            return _optionsPanel;
-        }
-    }
-
     private static GameObject _optionsGameObject;
     private static UIPanel _gameOptionsPanel;
     private static UIPanel _modNamedPanel;
@@ -23,6 +15,11 @@ public static class SettingsUI
 
     private static UITabstrip _optionsTabStrip;
 
+    static SettingsUI()
+    {
+        Translator.UpdateSettingsUI += LocaleChanged;
+    }
+    
     public static void Setup(UIHelperBase helper)
     {
         _modNamedPanel = (((UIHelper)helper).self as UIScrollablePanel)?.parent as UIPanel;
