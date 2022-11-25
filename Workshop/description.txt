@@ -1,0 +1,54 @@
+[h1]AD Cloud Replacer[/h1]
+
+This mod has been upgraded from enabler to replacer!
+Now you can replace the clouds
+
+[url=https://steamcommunity.com/workshop/browse/?appid=255710&requiredtags%5B%5D=ad%20clouds]Available clouds pack in Workshop[/url]
+
+[h3]What is the AD cloud?[/h3]
+
+It is old cloud that came with After Dark DLC, but disappeared due to Snowfall DLC and weather updates.
+It continues to rotate and does not cover the sky behind it, so it is not tied to the flow of time.
+
+
+[h3]Import clouds[/h3]
+
+You can import an image into a local folder and use it immediately.
+
+If you want to create your own cloud pack, create a folder named 'ADClouds' under the your Mod's content folder and put the files in it.
+
+Upload to the workshop with this mod enabled to add the 'AD Clouds' tag.
+
+
+[h3]Note[/h3]
+
+the game shader of AD cloud(DayNightCloudsProperties) uses the game's preprocessed atomsphere color, and since Relight changes it, Relight and vanilla can look different even if they have the same properties value.
+
+[url=https://github.com/neinnew/ADCloudReplacer]Github repository[/url]
+
+
+[h3]Translations[/h3]
+
+You can help translating this mod in [url=https://crowdin.com/project/ad-cloud-replacer]Crowdin[/url].
+
+Particular to say, I'm also asked to improve my original expression because English is not my native language. Please feel free to suggest better expressions or point out errors.
+
+
+[url=https://discord.gg/PX8y27EQyb][img]https://imgur.com/UtvUhvX.png[/img][/url]
+[url=https://cafe.naver.com/playct][img]https://imgur.com/HO12kaq.png[/img][/url]
+[table]
+ [tr]
+  [th]Links[/th]
+ [/tr]
+ [tr]
+  [td]
+Twitter -> [b][url=https://twitter.com/Cities_neinnew]@Cities_neinnew[/url][/b] 
+Youtube  -> [b][url=https://www.youtube.com/channel/UCJEZqfaM6N3BGvJo2c-zfKQ]neinnew[/url][/b] 
+Instagram  -> [b][url=https://www.instagram.com/at.leasat/]at.leasat[/url][/b]
+Discord ->  [b][url=https://discord.gg/PX8y27EQyb]neinnew CSL[/url][/b]
+  [/td]  
+[/tr]
+[tr] 
+[td] [*] 👍 If you want to support me, you can make a small donation via [url=https://paypal.me/neinnew]PayPal[/url][/td]
+[/tr]
+[/table]
