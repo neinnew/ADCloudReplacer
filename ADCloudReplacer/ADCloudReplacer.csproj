@@ -6,7 +6,7 @@
     <LangVersion>latest</LangVersion>
 
     <!-- Version -->
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <AssemblyVersion>$(Version).*</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>
     <Deterministic>false</Deterministic>
@@ -121,11 +121,11 @@
   <Target Name="DeployToWorkshop" AfterTargets="DeployToLocal" Condition="'$(Configuration)' == 'Workshop' AND '$(PublishedFileID)'!=''">
     <Message Importance="high" Text="Copy to Workshop Directory" />
     <ItemGroup>
-      <FilesToCopy Include="$(LocalDir)/*.*" />
+      <FilesToCopy Include="$(LocalDir)/**/*.*" />
       <Previewimage Include="$(SolutionDir)/Workshop/previewimage.png" />
     </ItemGroup>
     <Delete Files="$(WorkshopDir)/*.*" />
-    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(WorkshopDir)" />
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(WorkshopDir)%(RecursiveDir)" />
     <Copy SourceFiles="@(Previewimage)" DestinationFolder="$(WorkshopDir)" Condition="Exists('@(Previewimage)')" />
     <RemoveDir Directories="$(LocalDir)" />
   </Target>
