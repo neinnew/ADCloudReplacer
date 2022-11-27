@@ -21,17 +21,17 @@ public class Mod : IUserMod
     {
         XMLUtils.Load<ModSettings>();
         
-        if (LoadingManager.instance.m_loadingComplete)
-        {
-            CustomWorkshopTag.Initialize();
-            SettingsUI.OptionsEventHook();
-            Translator.Initialize();
-        }
-        else
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Startup")
         {
             LoadingManager.instance.m_introLoaded += CustomWorkshopTag.Initialize;
             LoadingManager.instance.m_introLoaded += SettingsUI.OptionsEventHook;
             LoadingManager.instance.m_introLoaded += Translator.Initialize;
+        }
+        else
+        {
+            CustomWorkshopTag.Initialize();
+            SettingsUI.OptionsEventHook();
+            Translator.Initialize();
         }
     }
 
